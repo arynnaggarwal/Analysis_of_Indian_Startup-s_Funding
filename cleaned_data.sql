@@ -2,7 +2,7 @@
 -- Step 2: Standardize the Data
 -- Step 3: Dealing with null values
 -- Step 4: Drop unnecessary columns from the staging table beacuse important remarks are already used
--- Step 5: Add extra columns for better analysis later (sector_addition.sql)
+-- Step 5: Add extra columns for better analysis later (column_addition(sector).sql)
 
 
 
@@ -39,6 +39,7 @@ where row_num > 1;
 
 
 
+
 -- Display the current data to review before making changes
 select * from funding_staging;
 
@@ -52,6 +53,24 @@ rename column `City  Location` to City,
 rename column `Amount in USD` to Amount_USD,
 rename column `Investors Name` to Investors,
 rename column `InvestmentnType` to InvestmentType;
+
+
+-- ALTER TABLE funding_staging
+-- add COLUMN `Date` text;
+
+-- UPDATE funding_staging
+-- SET date = (
+--     SELECT `date`
+--     FROM funding_staging2
+--     WHERE funding_staging.Startup_Name = funding_staging2.Startup_Name
+--         AND funding_staging.Amount_usd = funding_staging2.Amount_usd
+--         AND funding_staging.industry = funding_staging2.industry
+--         AND funding_staging.Investors = funding_staging2.Investors
+-- );
+
+-- SELECT distinct date
+-- FROM funding_staging;
+
 
 -- Display the data after renaming columns
 select * from funding_staging;
@@ -132,11 +151,11 @@ set industry = replace(industry, '\\\\xc2\\\\xa0', ''),
     industry = replace(industry, '\\\\xc3\\\\xa9\\\\xe2\\\\x80\\\\x99', ''),
     industry = replace(industry, '\\\\xe2\\\\x80\\\\x93', ''),
     industry = replace(industry, '-', ' '),
+    industry = replace(industry, '\\\\n', ''),
     industry = replace(industry, '\\\\xe2\\\\x80\\\\x99', ' '),
     industry = replace(industry, '\\\\xc3\\\\xa9cor', ' ');
 
 -- Handle null or invalid values in the Industry column by using data from other rows
-
 
 -- Select records where the industry is 'nan' to identify missing values
 select *
@@ -370,6 +389,66 @@ where InvestmentType = 'Pre-series A';
 update funding_staging
 set InvestmentType = replace(InvestmentType, 'Series-A', 'Series A');
 
+-- Standardize and clean up the date column
+ALTER TABLE funding_staging ADD datecopy DATE;
+
+SELECT *
+FROM funding_staging
+WHERE NOT date REGEXP '^[0-3][0-9]/[0-1][0-9]/[0-9]{4}$';
+
+UPDATE funding_staging
+SET date = REPLACE(`date dd/mm/yyyy`, '\\xc2\\xa0', '');
+
+UPDATE funding_staging
+SET date = '05/07/2018'
+WHERE date = '05/072018';
+
+UPDATE funding_staging
+SET date = '01/07/2015'
+WHERE date = '01/07/015';
+
+UPDATE funding_staging
+SET date = '10/07/2015'
+WHERE date = '10/7/2015';
+
+UPDATE funding_staging
+SET date = '12/05/2015'
+WHERE date = '12/05.2015';
+
+UPDATE funding_staging
+SET date = '22/01/2015'
+WHERE date = '22/01//2015';
+
+UPDATE funding_staging
+SET date = '13/04/2015'
+WHERE date = '13/04.2015';
+
+UPDATE funding_staging
+SET date = '15/01/2015'
+WHERE date = '15/01.2015';
+
+UPDATE funding_staging
+SET datecopy = STR_TO_DATE(date, '%d/%m/%Y')
+WHERE date REGEXP '^[0-3][0-9]/[0-1][0-9]/[0-9]{4}$';
+
+SELECT date, datecopy
+FROM funding_staging
+LIMIT 10;
+
+ALTER TABLE funding_staging DROP COLUMN date;
+
+ALTER TABLE funding_staging CHANGE datecopy date DATE;
+
+SELECT distinct date
+FROM funding_staging;
+
+SELECT *
+FROM funding_staging
+where date = '2020-01-09';
+
+
+
+
 -- Standardize and clean up the Amount_USD column
 select distinct Amount_USD
 from funding_staging
@@ -459,3 +538,4 @@ drop column remarks;
 -- Final cleaned and standardized table
 select *
 from funding_staging;
+
