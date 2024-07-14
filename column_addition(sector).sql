@@ -399,3 +399,9 @@ ADD COLUMN sector VARCHAR(255);
 UPDATE funding_staging
 SET sector = (SELECT sector FROM industry_to_sector WHERE industry_to_sector.industries = funding_staging.industry)
 WHERE EXISTS (SELECT 1 FROM industry_to_sector WHERE industry_to_sector.industries = funding_staging.industry);
+
+
+
+select distinct industry, sector
+from funding_staging
+order by sector;
