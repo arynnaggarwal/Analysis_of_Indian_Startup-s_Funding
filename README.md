@@ -1,4 +1,7 @@
-# Analysis and Visualization of Indian Startups' Funding
+# Analysis and Visualization of Indian Startup's Funding
+
+## Power BI Report
+Explore the live Power BI dashboard for an interactive experience: [View Project on Power BI](https://app.powerbi.com/links/xrQn67kDzK?ctid=4491fde7-7cec-49af-b870-98ef09899d11&pbi_source=linkShare)
 
 ## Overview
 This project focuses on two main components: cleaning and standardizing a dataset related to startup funding, and analyzing the funding landscape of Indian startups using Power BI. The primary goals are to ensure data integrity and provide insights into trends and patterns in the startup ecosystem.
@@ -57,15 +60,24 @@ This repository contains SQL scripts for cleaning a startup funding dataset and 
 ### Power BI Visualizations
 The visualizations are created using Power BI and are stored in the `India Startup's Funding Analysis.pbix` file. The report includes:
 - **Funding Trends Over Time**: Line and bar charts showing the trends in funding amounts over different periods.
-- **Industry Distribution**: Pie charts and bar charts illustrating the distribution of funded startups across various industries and sub-verticals.
+![Screenshot 2024-07-16 154317](https://github.com/user-attachments/assets/32347dd0-d245-49c3-ac5c-c2f9c1161583)
+
+- **Sector Distribution**: Bar charts illustrating the distribution of funded startups across various sectors.
+![Screenshot 2024-07-16 154414](https://github.com/user-attachments/assets/753db789-d765-495c-a665-c153a249b147)
+
 - **Geographical Distribution**: Maps and bar charts showing the distribution of startups and funding amounts across different cities in India.
+![Screenshot 2024-07-16 154638](https://github.com/user-attachments/assets/1343313a-dc88-4eaf-9e5e-cf5ad6780b3c)
+
 - **Investor Analysis**: Detailed views of the most active investors, types of investments they make, and their investment patterns.
+![Screenshot 2024-07-16 154733](https://github.com/user-attachments/assets/9f02d2d7-3884-47df-9997-89db053498df)
+
 - **Investment Types**: Analysis of different types of investments, such as Seed Funding, Series A, Series B, etc.
+![Screenshot 2024-07-16 154826](https://github.com/user-attachments/assets/6209e142-d3e3-4f9d-b703-7397bfb69220)
 
 ### Insights
 The analysis provides several key insights, including:
 - **Funding Growth**: Understanding how startup funding has evolved over time.
-- **Industry Hotspots**: Identifying which industries and sub-verticals are attracting the most funding.
+- **Secotrs Hotspots**: Identifying which sectors and sub-verticals are attracting the most funding.
 - **City-Level Analysis**: Discovering which cities are the major hubs for startup activity.
 - **Investor Patterns**: Analyzing the behavior and focus areas of key investors in the ecosystem.
 - **Funding Rounds**: Understanding the distribution and trends in different types of investment rounds.
