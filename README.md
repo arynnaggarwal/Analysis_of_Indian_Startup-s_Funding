@@ -1,69 +1,71 @@
-# Analysis on Funding of Indian Startups
+# Analysis and Visualization of Indian Startups' Funding
 
-This project focuses on cleaning and standardizing a dataset related to startup funding, as well as categorizing various industries into standardized sectors. The primary goals are to ensure data integrity by removing duplicates, handling null values, and enhancing dataset usability through industry classification.
+## Overview
+This project focuses on two main components: cleaning and standardizing a dataset related to startup funding, and analyzing the funding landscape of Indian startups using Power BI. The primary goals are to ensure data integrity and provide insights into trends and patterns in the startup ecosystem.
 
 ## Table of Contents
 - [Introduction](#introduction)
-- [Prerequisites](#prerequisites)
-- [Steps Involved](#steps-involved)
-  - [Cleaning and Standardizing the Dataset](#cleaning-and-standardizing-the-dataset)
-    - [Removing Duplicates](#removing-duplicates)
-    - [Standardizing Data](#standardizing-data)
-    - [Handling Null or Blank Values](#handling-null-or-blank-values)
-    - [Cleaning Up Specific Columns](#cleaning-up-specific-columns)
-    - [Special Handling of Amount_USD Column](#special-handling-of-amount_usd-column)
+- [Data Cleaning and Standardization](#data-cleaning-and-standardization)
+  - [Removing Duplicates](#removing-duplicates)
+  - [Standardizing Data](#standardizing-data)
+  - [Handling Null or Blank Values](#handling-null-or-blank-values)
+  - [Cleaning Up Specific Columns](#cleaning-up-specific-columns)
+  - [Special Handling of Amount_USD Column](#special-handling-of-amount_usd-column)
   - [Industry Sector Classification](#industry-sector-classification)
-    - [Industry Classification](#industry-classification)
-    - [Handling Null or 'nan' Industries](#handling-null-or-nan-industries)
-    - [Final Cleanup and Sector Assignment](#final-cleanup-and-sector-assignment)
-- [Running the SQL Scripts](#running-the-sql-scripts)
-- [Notes](#notes)
-- [Contributing](#contributing)
-- [License](#license)
+- [Funding Analysis and Visualization](#funding-analysis-and-visualization)
+  - [Power BI Visualizations](#power-bi-visualizations)
+  - [Insights](#insights)
 
 ## Introduction
-This repository contains SQL scripts for cleaning a startup funding dataset and classifying industries into standardized sectors. The scripts include steps to remove duplicate records, standardize column names and values, handle null or blank entries, and ensure accurate categorization of industries.
+This repository contains SQL scripts for cleaning a startup funding dataset and Power BI files for analyzing and visualizing the funding landscape of Indian startups. The scripts ensure data integrity by removing duplicates, handling null values, and enhancing dataset usability through industry classification. The Power BI visualizations provide insights into trends and patterns in the startup ecosystem.
 
-## Prerequisites
-- MySQL or any other compatible SQL database.
-- Basic understanding of SQL.
+## Data Cleaning and Standardization
 
-## Steps Involved
+### Removing Duplicates
+1. **Create a Staging Table**: Create a staging table identical to the original dataset to work on the data without affecting the original.
+2. **Insert Data into Staging Table**: Copy data from the original table to the staging table.
+3. **Identify and Remove Duplicates**: Identify duplicate records using a Common Table Expression (CTE) with the ROW_NUMBER function and then remove them.
 
-### Cleaning and Standardizing the Dataset
+### Standardizing Data
+1. **Rename Columns**: Rename columns for consistency and to follow naming conventions.
+2. **Trim Whitespace**: Remove leading and trailing whitespace in text fields.
+3. **Standardize Specific Values**: Standardize common values (e.g., different spellings of startup names and city names).
 
-#### Removing Duplicates
-- **Create a Staging Table**: A staging table identical to the original dataset was created to work on the data without affecting the original.
-- **Insert Data into Staging Table**: Data from the original table was copied to the staging table.
-- **Identify and Remove Duplicates**: Duplicate records were identified using a Common Table Expression (CTE) with the `ROW_NUMBER` function and then removed.
+### Handling Null or Blank Values
+1. **Identify Null or Blank Values**: Run queries to find records with null or blank values.
+2. **Update Null or Blank Values**: Update these values to more meaningful default values or infer from other related records where possible.
 
-#### Standardizing Data
-- **Rename Columns**: Columns were renamed for consistency and to follow naming conventions.
-- **Trim Whitespace**: Leading and trailing whitespace in text fields were removed to standardize the data.
-- **Standardize Specific Values**: Common values were standardized (e.g., different spellings of startup names and city names).
+### Cleaning Up Specific Columns
+1. **Industry Column**: Update missing values by inferring from other records with the same startup name.
+2. **SubVertical Column**: Apply similar cleaning steps to the SubVertical column.
+3. **City Column**: Standardize city names and correct common misspellings.
+4. **Investors and Investment Type Column**: Remove unnecessary characters and standardize entries.
+5. **Date Column**: Change the data type after correcting some of the values.
 
-#### Handling Null or Blank Values
-- **Identify Null or Blank Values**: Queries were run to find records with null or blank values.
-- **Update Null or Blank Values**: These values were updated to more meaningful default values or inferred from other related records where possible.
-
-#### Cleaning Up Specific Columns
-- **Industry Column**: Missing values were updated by inferring from other records with the same startup name.
-- **SubVertical Column**: Similar cleaning steps were applied to the SubVertical column.
-- **City Column**: Standardized city names and corrected common misspellings.
-- **Investors Column**: Removed unnecessary characters and standardized entries.
-
-#### Special Handling of Amount_USD Column
-- **Reduce Values Temporarily**: Values in the Amount_USD column were divided by 1000 to make them manageable.
-- **Alter Column Type**: The column type was then modified to FLOAT.
-- **Restore Original Values**: After changing the column type, the values were multiplied back by 1000 to restore their original scale.
+### Special Handling of Amount_USD Column
+1. **Reduce Values Temporarily**: Divide values in the Amount_USD column by 1000 to make them manageable.
+2. **Alter Column Type**: Modify the column type to FLOAT.
+3. **Restore Original Values**: Multiply the values back by 1000 to restore their original scale.
 
 ### Industry Sector Classification
+1. **Industry Classification**: Execute queries to categorize industries based on keywords related to sectors such as Food and Beverages, Agriculture, Automotive, Healthcare, Finance, Education, Hospitality, E-Commerce, Gaming, Transportation and Logistics, Fashion, Real Estate, Technology, Sustainability, and Services.
+2. **Handling Null or 'nan' Industries**: Identify and update any industries marked as 'nan' or null to a more meaningful category ('Other').
+3. **Final Cleanup and Sector Assignment**: Assign 'Other' to any remaining null sectors, review distinct sectors, and update the original funding dataset with the newly classified sectors.
 
-#### Industry Classification
-- A series of queries were executed to categorize industries based on keywords related to sectors such as Food and Beverages, Agriculture, Automotive, Healthcare, Finance, Education, Hospitality, E-Commerce, Gaming, Transportation and Logistics, Fashion, Real Estate, Technology, Sustainability, and Services. Each industry was assigned a sector using SQL `UPDATE` statements based on specific conditions.
+## Funding Analysis and Visualization
 
-#### Handling Null or 'nan' Industries
-- Queries were run to identify and update any industries marked as 'nan' or null to a more meaningful category ('Other').
+### Power BI Visualizations
+The visualizations are created using Power BI and are stored in the `India Startup's Funding Analysis.pbix` file. The report includes:
+- **Funding Trends Over Time**: Line and bar charts showing the trends in funding amounts over different periods.
+- **Industry Distribution**: Pie charts and bar charts illustrating the distribution of funded startups across various industries and sub-verticals.
+- **Geographical Distribution**: Maps and bar charts showing the distribution of startups and funding amounts across different cities in India.
+- **Investor Analysis**: Detailed views of the most active investors, types of investments they make, and their investment patterns.
+- **Investment Types**: Analysis of different types of investments, such as Seed Funding, Series A, Series B, etc.
 
-#### Final Cleanup and Sector Assignment
-- Final cleanup steps included assigning 'Other' to any remaining null sectors, reviewing distinct sectors, and updating the original funding dataset with the newly classified sectors.
+### Insights
+The analysis provides several key insights, including:
+- **Funding Growth**: Understanding how startup funding has evolved over time.
+- **Industry Hotspots**: Identifying which industries and sub-verticals are attracting the most funding.
+- **City-Level Analysis**: Discovering which cities are the major hubs for startup activity.
+- **Investor Patterns**: Analyzing the behavior and focus areas of key investors in the ecosystem.
+- **Funding Rounds**: Understanding the distribution and trends in different types of investment rounds.
