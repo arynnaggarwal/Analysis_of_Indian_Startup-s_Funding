@@ -1,4 +1,6 @@
-# Analysis and Visualization of Indian Startup's Funding
+# Analysis of Indian Startup's Funding
+![Screenshot 2024-07-16 155344](https://github.com/user-attachments/assets/d64cc257-f3d6-4345-876f-7664e36be15d)
+
 
 ## Power BI Report
 Explore the live Power BI dashboard for an interactive experience: [View Project on Power BI](https://app.powerbi.com/links/xrQn67kDzK?ctid=4491fde7-7cec-49af-b870-98ef09899d11&pbi_source=linkShare)
