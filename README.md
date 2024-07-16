@@ -71,6 +71,7 @@ The visualizations are created using Power BI and are stored in the `India Start
 ![Screenshot 2024-07-16 154638](https://github.com/user-attachments/assets/1343313a-dc88-4eaf-9e5e-cf5ad6780b3c)
 
 - **Investor Analysis**: Detailed views of the most active investors, types of investments they make, and their investment patterns.
+  
 ![Screenshot 2024-07-16 154733](https://github.com/user-attachments/assets/9f02d2d7-3884-47df-9997-89db053498df)
 
 - **Investment Types**: Analysis of different types of investments, such as Seed Funding, Series A, Series B, etc.
